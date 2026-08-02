@@ -1,0 +1,24 @@
+Verbative — Proprietary Software License
+
+Copyright (c) 2026 Florian Cramer (Cramer Digital). All rights reserved.
+
+This repository distributes the compiled binary components (the "Binaries") of the
+Verbative VS Code extension. The Binaries are proprietary. No license or right is granted to
+any person to use, copy, modify, reverse engineer, publish, redistribute, sublicense, or
+sell any part of the Binaries, except (a) as performed automatically by official
+Verbative software (the Verbative VS Code extension and the `verbative-memory` packages
+on PyPI and npm) when it downloads and installs them on an end user's machine,
+(b) as permitted for the bundled third-party components under their own licenses (see
+THIRD_PARTY_LICENSES.md), and (c) as expressly agreed by the copyright holder in writing.
+
+The Verbative VS Code extension and these Binaries are made available to end users under
+the End-User License Agreement / Terms at https://verbative.de/legal/terms.
+
+Third-party open-source components bundled within the Binaries are provided under their own
+licenses, listed in THIRD_PARTY_LICENSES.md. With respect to those components, those licenses
+govern, and nothing in this notice limits any right granted to you under them.
+
+Not affiliated with Anthropic. "Claude" and "Claude Code" are trademarks of Anthropic, PBC,
+used here nominatively.
+
+Contact: info@verbative.de
