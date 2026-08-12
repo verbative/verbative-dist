@@ -3,7 +3,8 @@
 The binaries distributed in this repository (the `verbative-whisper-cli`,
 `verbative-whisper-server`, `verbative-daemon`, `verbative-hooks`, `verbative-tts`, and
 `verbative-llm` release assets, plus the `verbative-memory-core` bundle — the same engine
-core packaged for the `verbative-memory` pip/npm launchers) bundle the third-party
+core packaged for the `verbative-memory` pip/npm launchers), built for macOS (Apple
+silicon) and Windows (x64), bundle the third-party
 open-source components listed below, each under its own license. Verbative ships **no copyleft (GPL/AGPL) code**. Each pip-installed Python
 dependency's license text ships inside the binaries (under `_internal/*.dist-info/`,
 including the LGPL text for num2words). The components whose texts are **not** embedded —
@@ -26,14 +27,16 @@ Python package's license text and the baked-in model licenses.
 
 ## Text-to-speech
 
-On Apple Silicon the default engine runs Kokoro on **MLX (Apple GPU)**; ONNX-CPU is the
-cross-platform fallback. Both paths use the permissive components below.
+On Apple Silicon the default engine runs Kokoro on **MLX (Apple GPU)**; on Windows the ONNX
+path runs on **DirectML (GPU)** where available; ONNX-CPU is the universal fallback. All
+paths use the permissive components below.
 
 - **Kokoro / Kokoro-82M** (hexgrad) — Apache-2.0. The ONNX path uses `kokoro-v1.0.onnx`
   (Apache-2.0); the MLX path downloads `mlx-community/Kokoro-82M-bf16` (Apache-2.0) at setup.
 - **MLX** + **mlx-audio** (Apple) — MIT. The Apple-GPU inference path; we call the model
   directly and reuse our own GPL-free G2P, bypassing mlx-audio's espeak pipeline.
-- **onnxruntime** (Microsoft) — MIT. The cross-platform CPU fallback inference engine.
+- **onnxruntime** (Microsoft) — MIT. The cross-platform ONNX inference engine (the Windows
+  bundle ships the `onnxruntime-directml` variant — same MIT license).
 - **huggingface_hub** — Apache-2.0. Used only to fetch the public MLX weights at setup.
 - **misaki** (English G2P) — Apache-2.0. Its `espeak.py` is replaced with a GPL-free no-op
   stub so the GPL espeak fallback is never used.
@@ -60,7 +63,9 @@ Pulled in by the above and bundled by PyInstaller; all OSI-approved permissive l
 - **MIT:** catalogue, cymem, murmurhash, preshed, srsly, thinc, wasabi, weasel, spacy-legacy,
   spacy-loggers, smart_open, setuptools, attrs, pydantic, pydantic-core, charset-normalizer,
   PyYAML, mlx, mlx-metal, mlx-audio, wheel
-- **BSD-3-Clause:** blis, numpy, MarkupSafe, click
+- **BSD-3-Clause:** blis, numpy, MarkupSafe, click — plus, in the Windows bundles: scipy,
+  scikit-learn, and the OpenBLAS libraries embedded in the numpy/scipy wheels
+  (`numpy.libs` / `scipy.libs`)
 - **BSD-2-Clause:** wrapt
 - **MPL-2.0:** **tqdm** (MPL-2.0 AND MIT) and **certifi** — weak/file-level copyleft; permitted
   in proprietary distribution; unmodified, license texts retained in the bundle.
@@ -86,6 +91,10 @@ or non-free model sizes are ever shipped or fetchable**.
 - **bge-reranker-v2-m3 (GGUF)** (BAAI, via the gpustack GGUF conversion) — **Apache-2.0**.
   The retrieval reranker (llama.cpp-native cross-encoder); downloaded at setup from Hugging
   Face. Each model's license travels with the download from its official repo.
+- **Qwen3 reader models (GGUF)** (Alibaba) — **Apache-2.0**. The optional on-device reader
+  model (it powers `ask`), tiered to the machine's RAM (4B/8B/32B) and allowlisted in code
+  to the official Qwen Hugging Face repos; downloaded on first use or via
+  `verbative-memory setup`.
 
 ## Python binary runtime (daemon, hooks, tts)
 
@@ -97,7 +106,12 @@ runtime; the daemon additionally bundles the capture libraries:
 - **CPython 3.11 standard library** (`libpython3.11`, in all three) — Python Software
   Foundation License (PSF). Full text in `LICENSES/`.
 - **numpy** — BSD-3-Clause.
-- **PyObjC** — MIT (the daemon's AVFoundation audio capture).
+- **PyObjC** — MIT (macOS: the daemon's AVFoundation audio capture).
+- **sounddevice + PortAudio** — MIT (Windows: microphone capture and audio playback). The
+  PortAudio DLL variant carrying the Steinberg-licensed ASIO backend is **stripped at build
+  time** — only the plain-MIT DLL ships.
+- **psutil** — BSD-3-Clause (Windows: process-tree and environment walks in the daemon and
+  hooks).
 
 ## No GPL code shipped (GPL deps replaced with GPL-free stubs)
 
@@ -116,7 +130,7 @@ bundle is the stub).
 ---
 
 _This list covers the third-party runtime components bundled in the distributed binaries
-(native binaries, Python bundles, and on-device models). No GPL/AGPL or non-commercial
-licenses are shipped. The only LGPL/MPL components (num2words — LGPL-2.1; tqdm and certifi —
-MPL-2.0) are included unmodified, with their full license texts retained in the bundle, as
-those licenses permit for commercial distribution._
+(native binaries, Python bundles, and on-device models) on both platforms. No GPL/AGPL or
+non-commercial licenses are shipped. The only LGPL/MPL components (num2words — LGPL-2.1;
+tqdm and certifi — MPL-2.0) are included unmodified, with their full license texts retained
+in the bundle, as those licenses permit for commercial distribution._

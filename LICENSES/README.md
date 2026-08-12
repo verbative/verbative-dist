@@ -13,7 +13,8 @@ releases. Organized by where the component lives in the binaries:
 - **`models/`** — pronunciation data baked into `verbative-tts`:
   - `CMUdict-BSD-2-Clause.txt` — the CMU Pronouncing Dictionary (BSD-2-Clause).
   - `g2p-en-Apache-2.0.txt` — the g2p-en model (Apache-2.0).
-  - The **local memory models** (Qwen3-Embedding-0.6B, Qwen3-4B, and bge-reranker-v2-m3 —
+  - The **local memory models** (Qwen3-Embedding-0.6B, Qwen3-4B, the RAM-tiered Qwen3
+    reader models, and bge-reranker-v2-m3 —
     all Apache-2.0) are downloaded at runtime from their official Hugging Face repos; each
     ships its own `LICENSE` in-repo, so the Apache-2.0 license travels with the download and
     is not re-hosted here. The same applies to the other runtime-downloaded models — the
@@ -22,6 +23,10 @@ releases. Organized by where the component lives in the binaries:
     download.
 - **`python-packages/`** — the license text for each bundled Python dependency, mirrored
   from its packaging metadata (`*.dist-info/`) inside the binaries.
+- **`windows/`** — curated texts for the components only the Windows bundles carry
+  (PortAudio/sounddevice, psutil, scipy, scikit-learn, OpenBLAS, onnxruntime-directml);
+  these ship without usable packaging metadata in the frozen bundles, so their texts are
+  maintained here.
 
 **No GPL/AGPL code ships.** The `phonemizer` module present in the bundle is Verbative's
 GPL-free no-op stub, not the upstream GPL package.
