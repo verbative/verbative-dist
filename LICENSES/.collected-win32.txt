@@ -26,6 +26,7 @@ python-packages/preshed
 python-packages/psutil
 python-packages/pydantic
 python-packages/pydantic_core
+python-packages/pywinpty
 python-packages/regex
 python-packages/scipy
 python-packages/scipy.libs
@@ -41,6 +42,7 @@ python-packages/tqdm
 python-packages/typing_extensions
 python-packages/wasabi
 python-packages/weasel
+python-packages/winpty
 python-packages/wrapt
 runtime/CPython-3.x-PSF.txt
 runtime/llama.cpp-MIT.txt
