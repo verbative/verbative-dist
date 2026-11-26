@@ -2,9 +2,10 @@
 
 The binaries distributed in this repository (the `verbative-whisper-cli`,
 `verbative-whisper-server`, `verbative-daemon`, `verbative-hooks`, `verbative-tts`, and
-`verbative-llm` release assets, plus the `verbative-memory-core` bundle — the same engine
-core packaged for the `verbative-memory` pip/npm launchers), built for macOS (Apple
-silicon) and Windows (x64), bundle the third-party
+`verbative-llm` and `verbative-parakeet-ane` release assets, plus the `verbative-memory-core`
+bundle — the same engine core packaged for the `verbative-memory` pip/npm launchers), built
+for macOS (Apple silicon) and Windows (x64), and the Verbative Voice apps (the `voice-*`
+releases, [below](#verbative-voice-the-voice--releases)) bundle the third-party
 open-source components listed below, each under its own license. Verbative ships **no copyleft (GPL/AGPL) code**. Each pip-installed Python
 dependency's license text ships inside the binaries (under `_internal/*.dist-info/`,
 including the LGPL text for num2words). The components whose texts are **not** embedded —
@@ -24,6 +25,25 @@ Python package's license text and the baked-in model licenses.
   huggingface.co/ggml-org/whisper-vad) — MIT. Voice-activity model run natively by
   whisper.cpp (`--vad`) so non-speech audio is never transcribed; downloaded beside
   the dictation models (~1 MB).
+
+- **Parakeet TDT 0.6B v3** (NVIDIA, huggingface.co/nvidia/parakeet-tdt-0.6b-v3) —
+  **CC-BY-4.0**. The extension's default dictation model on a Mac whose language it speaks,
+  and Verbative Voice's second speech engine; downloaded at setup, not hosted here.
+  Attribution: "Parakeet TDT 0.6B v3" by NVIDIA, licensed under CC-BY-4.0
+  (https://creativecommons.org/licenses/by/4.0/). On macOS in FluidInference's Core ML
+  conversion (huggingface.co/FluidInference/parakeet-tdt-0.6b-v3-coreml), on Windows
+  (Verbative Voice) in ggml-org's GGUF conversion (huggingface.co/ggml-org/parakeet-GGUF),
+  each used unmodified from there.
+- **`verbative-parakeet-ane`** — the macOS helper that runs Parakeet on the Neural Engine
+  with Core ML (Swift, Verbative's own code), shipped as its own release asset for the
+  extension and inside Verbative Voice. Compiled into it, full texts in `LICENSES/runtime/`:
+  - **FluidAudio** 0.18.4 (FluidInference, github.com/FluidInference/FluidAudio) —
+    Apache-2.0, with patches of ours.
+  - **fastcluster** (© 2011 Daniel Müllner, © Google Inc.) — BSD-2-Clause, part of
+    FluidAudio's sources.
+
+  Verbative Voice's Windows helper, `verbative-parakeet.exe`, is built on whisper.cpp's ggml
+  (MIT, above) with Verbative's own code.
 
 ## Text-to-speech
 
@@ -112,6 +132,30 @@ runtime; the daemon additionally bundles the capture libraries:
   time** — only the plain-MIT DLL ships.
 - **psutil** — BSD-3-Clause (Windows: process-tree and environment walks in the daemon and
   hooks).
+
+## Verbative Voice (the `voice-*` releases)
+
+The Verbative Voice downloads are distributed here too: the macOS dmg and update zip, the
+Windows installer, and the Windows bootstrapper (`voice-setup`). Each app carries its own
+complete list, `THIRD_PARTY_LICENSES.md`, inside the app (macOS:
+`Verbative Voice.app/Contents/Resources/`; Windows: the install folder's `resources\`), next
+to Electron's and Chromium's notices. In short:
+
+- **Electron** (Chromium, Node.js) — MIT, with Chromium's permissive component licenses;
+  Electron's `ffmpeg` library — LGPL-2.1, unmodified, without the GPL codecs.
+- **electron-updater** and its dependencies — MIT / ISC / BlueOak-1.0.0 (the Windows app's
+  updates).
+- **whisper.cpp** and **llama.cpp** — MIT, the same binaries as above; **Parakeet's
+  helpers** — above.
+- The frozen **Python sidecar**: CPython (PSF), numpy (BSD-3-Clause), PyObjC (MIT, macOS),
+  sounddevice + PortAudio and PyWinRT (MIT, Windows), ONNX Runtime (MIT), sentencepiece
+  (Apache-2.0), protobuf (BSD-3-Clause). Their texts are in `LICENSES/`, collected from the
+  built sidecar.
+- Models downloaded at first run, not hosted here except the paragraph model: the Whisper
+  GGML models and Silero VAD (MIT), Parakeet TDT 0.6B v3 (CC-BY-4.0, above), and AI
+  Polish's Spokenly Cleanup 1 (Apache-2.0, a fine-tune of Qwen3-0.6B-Base) and Segment any
+  Text sat-12l (MIT; its 8-bit ONNX, quantized by Verbative, is the `voice-paragraphs-1`
+  release here) with XLM-RoBERTa's sentencepiece model (MIT).
 
 ## No GPL code shipped (GPL deps replaced with GPL-free stubs)
 
