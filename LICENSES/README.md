@@ -10,6 +10,9 @@ releases. Organized by where the component lives in the binaries:
     memory extractor LLM runtime).
   - `CPython-3.11-PSF.txt` — the CPython 3.11 runtime (PSF License) embedded by PyInstaller
     in all three Python binaries.
+  - `FluidAudio-Apache-2.0.txt` and `fastcluster-BSD-2-Clause.txt` — compiled into
+    `verbative-parakeet-ane`, Parakeet's macOS helper (the extension's release asset, and
+    inside Verbative Voice).
 - **`models/`** — pronunciation data baked into `verbative-tts`:
   - `CMUdict-BSD-2-Clause.txt` — the CMU Pronouncing Dictionary (BSD-2-Clause).
   - `g2p-en-Apache-2.0.txt` — the g2p-en model (Apache-2.0).
@@ -22,7 +25,8 @@ releases. Organized by where the component lives in the binaries:
     (Apache-2.0): fetched at setup from their official repos, license traveling with the
     download.
 - **`python-packages/`** — the license text for each bundled Python dependency, mirrored
-  from its packaging metadata (`*.dist-info/`) inside the binaries.
+  from its packaging metadata (`*.dist-info/`) inside the binaries, Verbative Voice's
+  frozen sidecar included.
 - **`windows/`** — curated texts for the components only the Windows bundles carry
   (PortAudio/sounddevice, psutil, scipy, scikit-learn, OpenBLAS, onnxruntime-directml);
   these ship without usable packaging metadata in the frozen bundles, so their texts are

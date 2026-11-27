@@ -17,6 +17,7 @@ python-packages/click
 python-packages/cymem
 python-packages/dispatch
 python-packages/en_core_web_sm
+python-packages/google
 python-packages/hf_xet
 python-packages/huggingface_hub
 python-packages/importlib_metadata
@@ -35,6 +36,7 @@ python-packages/preshed
 python-packages/pydantic
 python-packages/pydantic_core
 python-packages/regex
+python-packages/sentencepiece
 python-packages/setuptools
 python-packages/smart_open
 python-packages/spacy
@@ -49,5 +51,7 @@ python-packages/wheel
 python-packages/wrapt
 python-packages/yaml
 runtime/CPython-3.11-PSF.txt
+runtime/FluidAudio-Apache-2.0.txt
+runtime/fastcluster-BSD-2-Clause.txt
 runtime/llama.cpp-MIT.txt
 runtime/whisper.cpp-MIT.txt

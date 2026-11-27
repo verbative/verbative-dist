@@ -1,0 +1,4 @@
+# The licence texts are written on both release machines (build/collect-licenses.py on
+# macOS and on Windows, where a checkout turns LF into CRLF): stored with LF either way,
+# so the two platforms' runs no longer flip a file's line endings back and forth.
+LICENSES/** text eol=lf
