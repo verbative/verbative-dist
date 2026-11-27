@@ -1,0 +1,23 @@
+Microsoft Visual C++ Runtime (redistributable files)
+
+Copyright (c) Microsoft Corporation. All rights reserved.
+
+These files are parts of the Microsoft Visual C++ Runtime, redistributed with this
+application:
+
+  msvcp140.dll    the C++ standard library
+  vcomp140.dll    the OpenMP runtime
+
+They are not open-source components and carry no open-source licence. Microsoft permits
+them to be redistributed with an application as "Distributable Code" under the licence
+terms of the Visual Studio release that produced them:
+
+  https://visualstudio.microsoft.com/license-terms/
+
+They arrive here inside Python wheels rather than being added deliberately: a wheel built
+with the Microsoft toolchain carries the runtime its extension modules were compiled
+against, placed in a sibling ".libs" directory by the wheel-repair tools (auditwheel,
+delvewheel). In this application they come with sentencepiece and with numpy, and the same
+files may appear more than once under different content hashes in their names.
+
+No modification is made to them. They are copied as the wheels provide them.
